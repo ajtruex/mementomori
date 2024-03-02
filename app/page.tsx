@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div>
       <Video src={billVid} />
-      <Video src={awesomeVideo} />
+      {/* <Video src={awesomeVideo} /> */}
       <Suspense fallback={<p>Loading video...</p>}>
         <VideoComponent />
       </Suspense>
