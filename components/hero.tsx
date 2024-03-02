@@ -16,12 +16,8 @@ import {
   CommandList,
   Command,
 } from "@/components/ui/command"
-import { upload } from "@vercel/blob/client"
-import { useState, useRef } from "react"
 
 export function Hero() {
-  const inputFileRef = useRef(null)
-  const [blob, setBlob] = useState(null)
   return (
     <div key="1" className="flex flex-col min-h-[100vh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -95,36 +91,13 @@ export function Hero() {
               </div>
             </div>
             <div className="flex justify-center">
-              <form
-                onSubmit={async (event) => {
-                  event.preventDefault()
-
-                  const file = inputFileRef.current.files[0]
-
-                  const newBlob = await upload(file.name, file, {
-                    access: "public",
-                    handleUploadUrl: "/api/avatar/upload",
-                  })
-
-                  setBlob(newBlob)
-                }}
+              <label
+                className="mt-6 bg-gray-900 text-gray-50 rounded-md px-4 py-2 text-sm font-medium shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 cursor-pointer"
+                htmlFor="upload"
               >
-                <label className="mt-6 bg-gray-900 text-gray-50 rounded-md px-4 py-2 text-sm font-medium shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 cursor-pointer">
-                  Upload Document
-                </label>
-                <input name="file" ref={inputFileRef} type="file" required />
-                <Button
-                  type="submit"
-                  className="mt-6 bg-gray-900 text-gray-50 rounded-md px-4 py-2 text-sm font-medium shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 cursor-pointer"
-                >
-                  Upload
-                </Button>
-              </form>
-              {blob && (
-                <div>
-                  Blob url: <a href={blob.url}>{blob.url}</a>
-                </div>
-              )}
+                Upload Document
+                <input className="hidden" id="upload" type="file" />
+              </label>
             </div>
             <div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
               <div className="flex items-center justify-center">
